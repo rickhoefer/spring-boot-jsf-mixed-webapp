@@ -1,0 +1,147 @@
+@CHARSET "UTF-8";
+
+.ui-icon-property {
+    background-image: url("#{resource['images/model/property.png']}") !important;
+}
+
+.ui-icon-datatype {
+    background-image: url("#{resource['images/model/datatype.png']}") !important;
+}
+
+/* throbber */
+
+.loader {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, .8) url("#{resource['images/throbber.gif']}") 50% 50% no-repeat;
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+body.loading .loader {
+    display: block;
+}
+
+/* panel-heading */
+
+.panel-heading a:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;
+    color: grey
+}
+
+.panel-heading a.collapsed:after {
+    content: "\e080"
+}
+
+/*
+ * JSF Message
+ */
+
+.jsf-messages {
+    list-style: none;
+    position: relative;
+    padding: 45px 15px 15px;
+    margin: 0 -15px 15px;
+    border-color: #e5e5e5 #eee #eee;
+    border-style: solid;
+    border-width: 1px 0;
+    -webkit-box-shadow: inset 0 3px 6px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, .05);
+}
+
+/* Echo out a label for the example */
+.jsf-messages:after {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #959595;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    content: "Message";
+}
+
+.jsf-messages-padded-bottom {
+    padding-bottom: 24px;
+}
+
+/* Tweak display of the code snippets when following an example */
+.jsf-messages + .highlight,
+.jsf-messages + .zero-clipboard + .highlight {
+    margin: -15px -15px 15px;
+    border-width: 0 0 1px;
+    border-radius: 0;
+}
+
+/* Make the examples and snippets not full-width */
+@media (min-width: 768px) {
+    .jsf-messages {
+        margin-right: 0;
+        margin-left: 0;
+        background-color: #fff;
+        border-color: #ddd;
+        border-width: 1px;
+        border-radius: 4px 4px 0 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .jsf-messages + .highlight,
+    .jsf-messages + .zero-clipboard + .highlight {
+        margin-top: -16px;
+        margin-right: 0;
+        margin-left: 0;
+        border-width: 1px;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .jsf-messages-standalone {
+        border-radius: 4px;
+    }
+}
+
+/* Undo width of container */
+.jsf-messages .container {
+    width: auto;
+}
+
+/* Tweak content of examples for optimum awesome */
+.jsf-messages > li:last-child {
+    margin-bottom: 0;
+}
+
+.jsf-messages > li > .close {
+    float: none;
+}
+
+.jsf-messages li {
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+/* table overflow*/
+
+.table-overflow {
+    overflow: scroll;
+    height: 100%;
+}
+
+.display-test {
+    width: 100%;
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}

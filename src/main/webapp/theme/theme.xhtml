@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta charset="UTF-8"/>
+    <title><ui:insert name="title">${translation['application.name']}</ui:insert></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Hammad"/>
+
+
+    <h:outputStylesheet library="plugins"
+                        name="bootstrap/css/bootstrap.css"/>
+
+    <h:outputStylesheet library="plugins"
+                        name="metisMenu/dist/metisMenu.min.css"/>
+
+    <h:outputStylesheet library="plugins"
+                        name="datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css"/>
+
+
+    <h:outputStylesheet library="template" name="css/sb-admin-2.css"/>
+
+    <h:outputStylesheet library="template" name="css/style.css"/>
+
+    <h:outputStylesheet library="plugins"
+                        name="font-awesome/css/font-awesome.css"/>
+
+
+    <!--  <h:outputStylesheet library="plugins"
+                          name="jquery-ui-themes/themes/smoothness/jquery-ui.css"/>
+  -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <h:outputStylesheet library="template"  name="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js">
+        <h:outputStylesheet library="template"  name="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js">
+    <![endif]-->
+
+    <link rel="shortcut icon" type="image/x-icon" href=" #{resource['images/favicon.ico']}"/>
+    <link rel="icon" type="image/x-icon" href=" #{resource['images/favicon.ico']}"/>
+
+
+    <ui:insert name="styles"></ui:insert>
+</h:head>
+<h:body>
+
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top"
+             style="margin-bottom: 0">
+            <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <h:link styleClass="navbar-brand" value="" outcome="index">${translation['application.name']}</h:link>
+            </div>
+
+            <h:form>
+                <ul class="nav navbar-top-links navbar-right">
+
+                    <!-- safeMode -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench fa-fw"></i>
+                            <h:outputText value="#{translation['menu.safe.mode']} #{dashboard.safeMode}"/>
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><h:commandLink action="#{dashboard.safeModeSwitcher('on')}">
+                                <i class="fa fa-language fa-fw"></i> on</h:commandLink>
+                            </li>
+                            <li><h:commandLink action="#{dashboard.safeModeSwitcher('off')}">
+                                <i class="fa fa-language fa-fw"></i> off</h:commandLink>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Environment -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-cog fa-fw"></i>
+                            <h:outputText value="#{dashboard.environment} #{translation['menu.environment']}"/>
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+
+                            <li>
+                                <h:commandLink action="#{dashboard.environmentSwitcher('Prod')}">
+                                    <i class="fa fa-cog fa-fw"></i> Prod</h:commandLink>
+                            </li>
+                            <li>
+                                <h:commandLink action="#{dashboard.environmentSwitcher('Test')}">
+                                    <i class="fa fa-cog fa-fw"></i> Test</h:commandLink>
+                            </li>
+                            <li>
+                                <h:commandLink action="#{dashboard.environmentSwitcher('CRN')}">
+                                    <i class="fa fa-cog fa-fw"></i> CRN</h:commandLink>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- language -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-language fa-fw"></i>
+                            <h:outputText value="#{dashboard.locale}"/>
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <h:commandLink action="#{dashboard.languageSwitcher('en')}">
+                                    <i class="fa fa-language fa-fw"></i> English</h:commandLink>
+                            </li>
+                            <li>
+                                <h:commandLink action="#{dashboard.languageSwitcher('nb')}">
+                                    <i class="fa fa-language fa-fw"></i> Norwegian Bokmål</h:commandLink>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <!--User-->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i>
+                            <h:outputText value="#{dashboard.user.fname} #{dashboard.user.lname}"/>
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <!--   <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                               </li>
+                               <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                               </li>
+                               <li class="divider"></li>-->
+                            <li><a href="#{request.contextPath}/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <!--Menu Toggle -->
+                    <li>
+                        <a href="#menu-toggle" id="menu-toggle"><i
+                                class="fa fa-tasks fa-fw"></i>Toggle Menu</a>
+                    </li>
+                </ul>
+            </h:form>
+
+            <!--Side Menu -->
+
+            <div class="navbar-default sidebar" role="navigation" id="side-wrapper">
+                <div class="sidebar-nav navbar-collapse" id="sidebar-nav">
+
+                    <ul class="nav" id="side-menu">
+
+                        <li>
+                            <h:link value="" outcome="index">
+                                <i class="fa fa-dashboard fa-fw"></i>
+                                <h:outputText value="#{translation['menu.dashboard']}"/>
+                            </h:link>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-sitemap fa-fw"></i>
+                                <h:outputText value="Users"/>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level collapse">
+                                <li>
+                                    <h:link value="" outcome="users">
+                                        <h:outputText value="User"/>
+                                    </h:link>
+                                </li>
+
+                                <li>
+                                    <h:link value="" outcome="newuser">
+                                        <h:outputText value="New User"/>
+                                    </h:link>
+                                </li>
+                            </ul>
+
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+            <!--Side Menu End-->
+        </nav>
+
+        <!--Body-->
+
+        <div id="page-wrapper">
+            <ui:insert name="body"></ui:insert>
+        </div>
+
+
+    </div>
+
+
+    <!--    <h:outputScript library="plugins"
+                        name="jquery/dist/jquery.min.js"/>-->
+
+    <h:outputScript library="plugins"
+                    name="bootstrap/js/bootstrap.min.js"/>
+
+    <h:outputScript library="plugins"
+                    name="jquery-ui/jquery-ui.js"/>
+
+    <h:outputScript library="plugins"
+                    name="metisMenu/dist/metisMenu.min.js"/>
+
+
+    <h:outputScript library="plugins"
+                    name="datatables/media/js/jquery.dataTables.js"/>
+
+    <h:outputScript library="plugins"
+                    name="datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js"/>
+
+
+    <h:outputScript library="template" name="js/sb-admin-2.js"/>
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+            $("#sidebar-nav").toggleClass("collapse");
+        });
+    </script>
+    <ui:insert name="scripts"></ui:insert>
+
+
+</h:body>
+
+</html>

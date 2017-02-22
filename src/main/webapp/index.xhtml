@@ -1,0 +1,115 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/theme/theme.xhtml">
+    <ui:define name="title">
+        Home
+    </ui:define>
+    <ui:define name="body">
+        <div class="loader"></div>
+        <h:form id="inputForm" prependId="false">
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">#{translation['dashboard.dashboard']}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"></div>
+                                    <div> Data Models</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span> <span
+                                    class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"></div>
+                                    <div> Rules</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span> <span
+                                    class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.row -->
+        </h:form>
+    </ui:define>
+    <ui:define name="scripts">
+        <h:outputScript>
+            function ajaxStart() {
+                $("body").addClass("loading");
+            }
+
+            function ajaxComplete() {
+                $("body").removeClass("loading");
+            }
+
+            jsf.ajax.addOnEvent(function (data) {
+                var ajaxstatus = data.status;
+
+                switch (ajaxstatus) {
+                    case "begin":
+                        ajaxStart();
+                        break;
+
+                    case "complete":
+                        ajaxComplete();
+                        break;
+
+                    case "success":
+
+                        break;
+                }
+            });
+        </h:outputScript>
+
+        <script>
+
+            $(document).ready(function () {
+
+                $(".datepicker").datepicker();
+                $('#dataTables-example').DataTable({
+                    responsive: true
+                });
+                $('#rules-data').DataTable({
+                    responsive: true
+                });
+
+            });
+        </script>
+    </ui:define>
+</ui:composition>

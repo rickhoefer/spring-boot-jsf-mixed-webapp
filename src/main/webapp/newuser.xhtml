@@ -1,0 +1,161 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/theme/theme.xhtml">
+    <ui:define name="title">
+        User Model
+    </ui:define>
+    <ui:define name="body">
+        <div class="loader"></div>
+        <f:event type="preRenderView" listener="#{user.preRenderView()}"/>
+        <h:form id="inputForm" prependId="false">
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">User Model</div>
+
+                        <div class="panel-body">
+
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <h:inputText value="#{user.fname}" styleClass="form-control">
+                                            <f:ajax execute="@this" render="inputForm"/>
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <h:inputText value="#{user.lname}" styleClass="form-control">
+                                            <f:ajax execute="@this" render="inputForm"/>
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <h:inputText value="#{user.email}" styleClass="form-control">
+                                            <f:ajax execute="@this" render="inputForm"/>
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <h:inputText value="#{user.username}" styleClass="form-control">
+                                            <f:ajax execute="@this" render="inputForm"/>
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Roles</label>
+                                        <p:selectCheckboxMenu
+                                                styleClass="form-control"
+                                                style="width:100% !important"
+                                                value="#{user.roles}"
+                                                label="">
+                                            <f:selectItems
+                                                    value="#{user.rolesList}"/>
+                                            <f:ajax execute="@this" render="inputForm"/>
+                                        </p:selectCheckboxMenu>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-lg-4">
+                                    <h:commandButton action="#{user.saveUser}" type="submit"
+                                                     value=" Save User"
+                                                     class="btn btn-success btn-block">
+                                        <f:ajax execute="@form" render="inputForm"/>
+                                    </h:commandButton>
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <h:commandButton action="#{user.reset}"
+                                                     value=" Reset"
+                                                     class="btn btn-danger btn-block">
+                                        <f:ajax execute="@form" render="inputForm"/>
+                                    </h:commandButton>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <script>
+                $(document).ready(function () {
+
+                    $(".datepicker").datepicker({dateFormat: 'dd-m-yy'});
+                    $("select[size]").removeAttr("size");
+                    $(".ui-selectcheckboxmenu-header").remove();
+                    $(".ui-selectcheckboxmenu-trigger").css('width', 'auto');
+                    $(".ui-selectonemenu-trigger").css('width', 'auto');
+                    $(".ui-selectonemenu.ui-widget.ui-corner-all.form-control").css('padding', '2px');
+                    /* $(".ui-selectonemenu-label.ui-inputfield.ui-corner-all").css('padding', '0px');*/
+                    $(".ui-selectcheckboxmenu.ui-widget.ui-corner-all.form-control").css('padding', '2px');
+                    $(".ui-selectcheckboxmenu-label.ui-corner-all").css('height', '28px');
+                });
+            </script>
+        </h:form>
+    </ui:define>
+    <ui:define name="scripts">
+
+        <h:outputScript>
+            function ajaxStart() {
+            $("body").addClass("loading");
+            }
+
+            function ajaxComplete() {
+            $("body").removeClass("loading");
+            }
+
+            jsf.ajax.addOnEvent(function (data) {
+            var ajaxstatus = data.status;
+
+            switch (ajaxstatus) {
+            case "begin":
+            ajaxStart();
+            break;
+
+            case "complete":
+            ajaxComplete();
+            break;
+
+            case "success":
+
+            break;
+            }
+            });
+        </h:outputScript>
+        <p:ajaxStatus onstart=" ajaxStart()" oncomplete="ajaxComplete()"/>
+
+    </ui:define>
+</ui:composition>
